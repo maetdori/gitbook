@@ -24,3 +24,54 @@
   * `JpaBatchConfigurer`
     * JPA 관련 객체를 생성하는 설정 클래스
   * <mark style="background-color:yellow;">사용자 정의</mark> <mark style="background-color:yellow;"></mark><mark style="background-color:yellow;">`BatchConfigurer`</mark> <mark style="background-color:yellow;"></mark><mark style="background-color:yellow;">인터페이스를 구현하여 사용할 수 있음</mark>
+
+## 2. Hello Spring Batch 시작하기
+
+```java
+@Configuration
+public class HelloJobConfiguration { // Job을 정의
+    private final JobBuilderFactory jobBuilderFactory;
+    private final StepBuilderFactory stepBuilderFactory;
+    
+    public HelloJobConfiguration(JobBuilderFactory jobBuilderFactory, 
+                                 StepBuilderFactory stepBuilderFactory) {
+         this.jobBuilderFactory = jobBuilderFactory;
+         this.stepBuilderFactory = stepBuilderFactory;
+    }
+    
+    @Bean
+    public Job helloJob() {
+         return jobBuilderFactory.get("helloJob") // Job 생성
+                 .start(helloStep())
+                 .build();
+    }
+    
+    @Bean
+    public Step helloStep() {
+         return stepBuilderFactory.get("helloStep") // Step 생성
+                 .tasklet((contribution, chunkContext) -> {
+                     System.out.println("Hello Spring Batch");
+                     return RepeatStatus.FINISHED; // tasklet은 기본적으로 무한 반복이지만 RepeatStatus.FINISHED 또는 null을 리턴해주면 1번만 실행하고 종료한다.
+                 })
+                 .build();
+    }
+    
+}
+```
+
+* `@Configuration` 선언
+  * 하나의 배치 Job을 정의하고 빈 설정
+* `JobBuilderFactory`
+  * Job을 생성하는 빌더 팩토리
+* `StepBuilderFactory`
+  * Step을 생성하는 빌더 팩토리
+* `Job`
+  * helloJob 이름으로 Job 생성
+* `Step`
+  * helloStep 이름으로 Step 생성
+* `Tasklet`
+  * Step 안에서 단일 태스크로 수행되는 로직 구현
+
+<figure><img src="../../.gitbook/assets/image.png" alt=""><figcaption></figcaption></figure>
+
+<figure><img src="../../.gitbook/assets/image (4).png" alt=""><figcaption></figcaption></figure>
