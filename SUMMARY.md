@@ -6,15 +6,13 @@
 
 * [Java](notes/java.md)
 * [Spring](notes/spring.md)
-* [Spring Batch](notes/spring-batch.md)
 * [Netty](notes/netty.md)
 
 ## Books
 
-* [오브젝트](books/undefined.md)
-* [토비의 스프링 3.1](books/3.1.md)
-* [Copy of 토비의 스프링 3.1](books/copy-of-3.1.md)
-* [Netty in Action](books/netty-in-action.md)
+* [Effective Java](books/effective-java/README.md)
+  * [2장 | 객체 생성과 파괴](books/effective-java/2-or/README.md)
+    * [아이템 1. 생성자 대신 정적 팩터리 메서드를 고려하라](books/effective-java/2-or/1..md)
 
 ## Inflearn
 
